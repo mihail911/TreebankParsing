@@ -92,6 +92,7 @@ public class BaselineParser implements Parser {
         return tags;
     }
 
+    /* best tag is the one that gives you the highest P(word|tag) */
     private String getBestTag(String word) {
         double bestScore = Double.NEGATIVE_INFINITY;
         String bestTag = null;
