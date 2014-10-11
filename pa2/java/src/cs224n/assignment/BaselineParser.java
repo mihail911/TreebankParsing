@@ -68,6 +68,7 @@ public class BaselineParser implements Parser {
         return new Tree<String>("ROOT", Collections.singletonList(tree));
     }
 
+    /* Returns a tree like (NN -> ("Bob")) */
     private Tree<String> buildTagTree(List<String> words,
             List<String> tags,
             int currentPosition) {
@@ -77,6 +78,7 @@ public class BaselineParser implements Parser {
         return tagTree;
     }
 
+    /* best known parse is the parse that was seen the most for this tag sequence */
     private Tree<String> getBestKnownParse(List<String> tags, List<String> sentence) {
         Tree<String> parse = knownParses.getCounter(tags).argMax().deepCopy();
         parse.setWords(sentence);
