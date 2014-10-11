@@ -54,7 +54,7 @@ public class PCFGParserTester {
 
 		// set up default options ..............................................
 		Map<String, String> options = new HashMap<String, String>();
-		options.put("-path",      "/afs/ir/class/cs224n/pa2/data/");
+		options.put("-path",      "/afs/ir/class/cs224n/data/pa2");
 		options.put("-data",      "miniTest");
 		options.put("-parser",    "cs224n.assignment.BaselineParser");
 		options.put("-maxLength", "20");

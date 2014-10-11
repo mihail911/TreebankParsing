@@ -105,6 +105,7 @@ public class BaselineParser implements Parser {
         return bestTag;
     }
 
+    
     private int tallySpans(Tree<String> tree, int start) {
         if (tree.isLeaf() || tree.isPreTerminal()) 
             return 1;
