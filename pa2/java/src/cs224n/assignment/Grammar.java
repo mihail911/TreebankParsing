@@ -217,6 +217,7 @@ public class Grammar {
 		}
 	}
 
+    /* cannot handle nodes with no children or nodes with more than 2 children */
 	private void tallyTree(Tree<String> tree, Counter<String> symbolCounter,
 			Counter<UnaryRule> unaryRuleCounter, 
 			Counter<BinaryRule> binaryRuleCounter) {
