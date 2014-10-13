@@ -54,6 +54,7 @@ public class PCFGParser implements Parser {
                     scores.get(i).get(i+1).setCount(tag,prob);
                 }
             }
+            //Expand unary
             boolean added = true;
             while (added){
                 added = false;
