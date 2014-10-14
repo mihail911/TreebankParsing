@@ -229,7 +229,8 @@ public class PCFGParser implements Parser {
     }
 
     public Tree<String> buildTree(List<String> sentence, ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers) {
-        return buildTreeRecur(sentence, 0, backPointers.size()-1, "ROOT", backPointers);
+        Tree<String> tree = buildTreeRecur(sentence, 0, backPointers.size()-1, "ROOT", backPointers);
+        return TreeAnnotations.unAnnotateTree(tree);
     }
 
     private Tree<String> buildTreeRecur(List<String> sentence, int begin, int end, String symbol, ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers) {
@@ -247,9 +248,6 @@ public class PCFGParser implements Parser {
 
         // general case: A->B,C
         Triplet<Integer, String, String> backPointer = backPointers.get(begin).get(end).get(symbol);
-        if (backPointer == null) {
-            System.out.println("poo");
-        }
         int split = backPointer.getFirst();
         String B = backPointer.getSecond();
         String C = backPointer.getThird();
@@ -263,7 +261,7 @@ public class PCFGParser implements Parser {
         } else {
             // binary rule: do left and do right
             Tree<String> BTree = buildTreeRecur(sentence, begin, split, B, backPointers);
-            Tree<String> CTree = buildTreeRecur(sentence, split+1, end, C, backPointers);
+            Tree<String> CTree = buildTreeRecur(sentence, split, end, C, backPointers);
             List<Tree<String>> children = new ArrayList<Tree<String>>();
             children.add(BTree);
             children.add(CTree);
