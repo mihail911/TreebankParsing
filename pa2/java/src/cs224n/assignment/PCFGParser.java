@@ -3,6 +3,7 @@ package cs224n.assignment;
 import cs224n.ling.Tree;
 import cs224n.util.*;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -29,7 +30,12 @@ public class PCFGParser implements Parser {
     public Tree<String> getBestParse(List<String> sentence) {
         // TODO: implement this method
         int numWords = sentence.size();
+
+        // score = new double [#(words)+1][#(words-1)][#nonterms]
+        // back = new Pair[#(words)+1][#(words)+1][#nonterms]
+
         //Initialize scores array
+        // score = new double [#(words)+1][#(words-1)][#nonterms]
         ArrayList<ArrayList<Counter<String>>> scores = new ArrayList<ArrayList<Counter<String>>>();
         for(int i = 0; i <= numWords; ++i){
             scores.add(new ArrayList<Counter<String>>());
@@ -37,6 +43,8 @@ public class PCFGParser implements Parser {
                 scores.get(i).add(new Counter<String>());
             }
         }
+
+        // back = new Pair[#(words)+1][#(words)+1][#nonterms]
         //Initialize backPointer array
         ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers = new ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>>();
         for(int i = 0; i <= numWords; ++i){
@@ -46,45 +54,9 @@ public class PCFGParser implements Parser {
             }
         }
 
-        for(int i = 0; i < numWords; ++i){
-            String word = sentence.get(i);
-            for (String tag: lexicon.getAllTags()){
-                if(lexicon.isKnown(word) && lexicon.wordToTagCounters.getCount(word,tag) != 0){
-                    double prob = lexicon.scoreTagging(word,tag);
-                    scores.get(i).get(i+1).setCount(tag,prob);
-                }
-            }
-            //Expand unary
-            boolean added = true;
-            while (added){
-                added = false;
-                Set<String> children = grammar.unaryRulesByChild.keySet();
-                //Iterating over B in A->B
-                for(String child: children){
-                    List<Grammar.UnaryRule> unaryRules = grammar.getUnaryRulesByChild(child);
-                    //Iterate over all A
-                    for(Grammar.UnaryRule rule: unaryRules){
-                        String parent = rule.parent;
-
-                        double scoreChild = scores.get(i).get(i+1).getCount(child);
-                        if(scoreChild > 0){
-                            double prob = rule.getScore() * scoreChild;
-                            double scoreParent = scores.get(i).get(i+1).getCount(parent);
-                            if(prob > scoreParent){
-                                scores.get(i).get(i+1).setCount(parent,prob);
-
-                                added = true;
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
         /*
             CKY Algorithm (words, grammar):
-            score = new double [#(words)+1][#(words-1)][#nonterms]
-            back = new Pair[#(words)+1][#(words)+1][#nonterms]
+
             for i=0; i<(words); i++
                 for A in nonterms:
                     if A -> words[i] in grammar
@@ -100,6 +72,60 @@ public class PCFGParser implements Parser {
                                 score[i][i+1][A] = prob
                                 back[i][i+1][A] = B
                                 added = true
+        */
+
+        // for i=0; i<(words); i++
+        for(int i = 0; i < numWords; ++i){
+
+            // for A in preterminals:
+            String word = sentence.get(i);
+            for (String tag: lexicon.getAllTags()) {
+                // if A -> words[i] in grammar
+                // score[i][i+1][A]=P(A -> words[i])
+                scores.get(i).get(i+1).setCount(tag, lexicon.scoreTagging(word, tag));
+            }
+
+            // expand unary
+            // boolean added = true
+            boolean added = true;
+            // while added
+            while (added) {
+                // added = false
+                added = false;
+
+                // for A->B in non-terminals
+                Set<String> Bs = grammar.unaryRulesByChild.keySet();
+                for(String B: Bs){
+                    List<Grammar.UnaryRule> unaryRules = grammar.getUnaryRulesByChild(B);
+                    for(Grammar.UnaryRule rule: unaryRules){
+                        String A = rule.getParent();
+
+                        // if score[i][i+1][B] > 0 && A->B in grammar (A->B always in grammar)
+                        if(scores.get(i).get(i+1).getCount(B) > 0){
+
+                            // prob = p(A->B)*score[i][i+1][B]
+                            double prob = rule.getScore() * scores.get(i).get(i+1).getCount(B);
+
+                            // if prob > score[i][i+1][A]
+                            if(prob > scores.get(i).get(i+1).getCount(A)){
+
+                                // score[i][i+1][A] = prob
+                                scores.get(i).get(i+1).setCount(A, prob);
+
+                                // back[i][i+1][A] = B
+                                backPointers.get(i).get(i+1).put(A, new Triplet<Integer, String, String>(-1, B, null));
+
+                                // added = true
+                                added = true;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        /*
             for span = 2 to #(words)
                 for begin = 0 to #(words - span
                     end = begin + span
@@ -120,9 +146,91 @@ public class PCFGParser implements Parser {
                                 back[begin][end][A] = B
                                 added = true
             return buildTree (score, back) //return most probable parse
-
-
          */
+
+        //for span = 2 to #(words)
+        for (int span=2; span<numWords; span++) {
+
+            // for begin = 0 to #(words) - span
+            for (int begin=0; begin<(numWords-span); begin++) {
+
+                // end = begin + span
+                int end = begin + span;
+
+                // for split = begin+1 to end-1
+                for (int split=begin+1; split<end-1; split++) {
+
+                    // for A->B,C in nonterms
+                    Set<String> Bs = grammar.binaryRulesByLeftChild.keySet();
+                    for (String B: Bs) {
+                        List<Grammar.BinaryRule> binaryRules = grammar.getBinaryRulesByLeftChild(B);
+                        for (Grammar.BinaryRule rule : binaryRules) {
+                            String A = rule.getParent();
+                            String C = rule.getRightChild();
+
+                            // prob = score[begin][split][B]*score[split][end][C] * P(A->BC)
+                            double prob = scores.get(begin).get(split).getCount(B) * scores.get(split).get(end).getCount(C) * rule.getScore();
+
+                            // if prob > score[begin][end][A]
+                            if (prob > scores.get(begin).get(end).getCount(A)) {
+                                // score[begin][end][A] = prob
+                                scores.get(begin).get(end).setCount(A, prob);
+
+                                // back[begin][end][A] = new Triple (split,B,C)
+                                backPointers.get(begin).get(end).put(A, new Triplet<Integer, String, String>(split, B, C));
+                            }
+                        }
+                    }
+                }
+
+
+                // handle unaries
+                // boolean added = true
+                boolean added = true;
+
+                // while added
+                while (added) {
+                    // added = false
+                    added = false;
+
+                    // for A->B in non-terminals
+                    Set<String> Bs = grammar.unaryRulesByChild.keySet();
+                    for(String B: Bs){
+                        List<Grammar.UnaryRule> unaryRules = grammar.getUnaryRulesByChild(B);
+                        for(Grammar.UnaryRule rule: unaryRules){
+                            String A = rule.getParent();
+
+                            // prob = P(A->B)*score[begin][end][B]
+                            double prob = rule.getScore() * scores.get(begin).get(end).getCount(B);
+
+                            // if prob > score[begin][end][A]
+                            if (prob > scores.get(begin).get(end).getCount(A)) {
+
+                                // score[begin][end][A] = prob
+                                scores.get(begin).get(end).setCount(A, prob);
+
+                                // back[begin][end][A] = B
+                                backPointers.get(begin).get(end).put(A, new Triplet<Integer, String, String>(-1, B, null));
+
+                                // added = true
+                                added = true;
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+        }
+
+        // return buildTree (score, back) //return most probable parse
+        return buildTree(scores, backPointers);
+    }
+
+    public Tree<String> buildTree(ArrayList<ArrayList<Counter<String>>> scores, ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers) {
+
         return null;
     }
+
 }
