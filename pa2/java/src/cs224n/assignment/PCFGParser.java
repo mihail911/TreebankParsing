@@ -149,16 +149,16 @@ public class PCFGParser implements Parser {
          */
 
         //for span = 2 to #(words)
-        for (int span=2; span<numWords; span++) {
+        for (int span=2; span<numWords+1; span++) {
 
             // for begin = 0 to #(words) - span
-            for (int begin=0; begin<(numWords-span); begin++) {
+            for (int begin=0; begin<(numWords-span+1); begin++) {
 
                 // end = begin + span
                 int end = begin + span;
 
                 // for split = begin+1 to end-1
-                for (int split=begin+1; split<end-1; split++) {
+                for (int split=begin+1; split<end; split++) {
 
                     // for A->B,C in nonterms
                     Set<String> Bs = grammar.binaryRulesByLeftChild.keySet();
@@ -247,6 +247,9 @@ public class PCFGParser implements Parser {
 
         // general case: A->B,C
         Triplet<Integer, String, String> backPointer = backPointers.get(begin).get(end).get(symbol);
+        if (backPointer == null) {
+            System.out.println("poo");
+        }
         int split = backPointer.getFirst();
         String B = backPointer.getSecond();
         String C = backPointer.getThird();
