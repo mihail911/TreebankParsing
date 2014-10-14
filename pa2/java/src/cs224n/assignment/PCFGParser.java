@@ -120,7 +120,6 @@ public class PCFGParser implements Parser {
                             }
                         }
                     }
-
                 }
             }
         }
@@ -217,9 +216,6 @@ public class PCFGParser implements Parser {
                             }
                         }
                     }
-
-
-
                 }
             }
         }
