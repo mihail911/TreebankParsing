@@ -38,11 +38,11 @@ public class PCFGParser implements Parser {
             }
         }
         //Initialize backPointer array
-        ArrayList<ArrayList<Counter<Pair<Integer,Integer>>>> backPointers = new ArrayList<ArrayList<Counter<Pair<Integer,Integer>>>>();
+        ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers = new ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>>();
         for(int i = 0; i <= numWords; ++i){
-            backPointers.add(new ArrayList<Counter<Pair<Integer,Integer>>>());
+            backPointers.add(new ArrayList<HashMap<String, Triplet<Integer,String,String>>>());
             for(int j = 0; j <= numWords; ++j){
-                backPointers.get(i).add(new Counter<Pair<Integer,Integer>>());
+                backPointers.get(i).add(new HashMap<String, Triplet<Integer,String,String>>());
             }
         }
 
