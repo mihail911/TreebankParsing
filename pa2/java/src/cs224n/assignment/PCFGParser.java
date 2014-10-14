@@ -225,12 +225,47 @@ public class PCFGParser implements Parser {
         }
 
         // return buildTree (score, back) //return most probable parse
-        return buildTree(scores, backPointers);
+        return buildTree(sentence, backPointers);
     }
 
-    public Tree<String> buildTree(ArrayList<ArrayList<Counter<String>>> scores, ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers) {
-
-        return null;
+    public Tree<String> buildTree(List<String> sentence, ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers) {
+        return buildTreeRecur(sentence, 0, backPointers.size()-1, "ROOT", backPointers);
     }
 
+    private Tree<String> buildTreeRecur(List<String> sentence, int begin, int end, String symbol, ArrayList<ArrayList<HashMap<String, Triplet<Integer,String,String>>>> backPointers) {
+        // create a tree with the symbol node as the root
+        Tree<String> tree = new Tree<String>(symbol);
+
+        // base case: root is preterminal A->B
+        if (lexicon.getAllTags().contains(symbol)) {
+            // attach the word at this position to
+            Tree<String> terminal = new Tree<String>(sentence.get(begin));
+            List<Tree<String>> children = Collections.singletonList(terminal);
+            tree.setChildren(children);
+            return tree;
+        }
+
+        // general case: A->B,C
+        Triplet<Integer, String, String> backPointer = backPointers.get(begin).get(end).get(symbol);
+        int split = backPointer.getFirst();
+        String B = backPointer.getSecond();
+        String C = backPointer.getThird();
+
+        if (split == -1) {
+            // unary rule: look up again
+            Tree<String> nonterminal = buildTreeRecur(sentence, begin, end, B, backPointers);
+            List<Tree<String>> children = Collections.singletonList(nonterminal);
+            tree.setChildren(children);
+            return tree;
+        } else {
+            // binary rule: do left and do right
+            Tree<String> BTree = buildTreeRecur(sentence, begin, split, B, backPointers);
+            Tree<String> CTree = buildTreeRecur(sentence, split+1, end, C, backPointers);
+            List<Tree<String>> children = new ArrayList<Tree<String>>();
+            children.add(BTree);
+            children.add(CTree);
+            tree.setChildren(children);
+            return tree;
+        }
+    }
 }
