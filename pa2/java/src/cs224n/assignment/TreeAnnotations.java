@@ -26,8 +26,8 @@ public class TreeAnnotations {
 		// TODO : mark nodes with the label of their parent nodes, giving a second
 		// order vertical markov process
 
-		//return binarizeTree(unAnnotatedTree);
-        return markovizeTree(unAnnotatedTree);
+		return binarizeTree(unAnnotatedTree);
+        //return markovizeTree(unAnnotatedTree);
 	}
 
     //TODO: prune some annotations to account for infrequent labels
