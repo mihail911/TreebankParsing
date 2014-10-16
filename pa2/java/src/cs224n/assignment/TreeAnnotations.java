@@ -26,8 +26,10 @@ public class TreeAnnotations {
 		// TODO : mark nodes with the label of their parent nodes, giving a second
 		// order vertical markov process
 
-		return binarizeTree(unAnnotatedTree);
-        //return markovizeTree(unAnnotatedTree);
+        Tree<String> markovTree = markovizeTree(unAnnotatedTree);
+        Tree<String> binaryTree = binarizeTree(markovTree);
+		return binaryTree;
+
 	}
 
     //TODO: prune some annotations to account for infrequent labels
@@ -56,11 +58,12 @@ public class TreeAnnotations {
     //TODO: test this code!!
     private static Tree<String> markovizeTreeHelper(Tree<String> unAnnotatedTree, String parentLabel){
         String oldLabel = unAnnotatedTree.getLabel();
+        //Base case when you reach a leaf
         if(unAnnotatedTree.isLeaf()){
             Tree<String> newTree = new Tree(oldLabel);
             //Ensure tree has parent
-            if(parentLabel != "")
-                newTree.setLabel(oldLabel + "^"+ parentLabel);
+//            if(parentLabel != "")
+//                newTree.setLabel(oldLabel + "^"+ parentLabel);
             return newTree;
         }
         Tree<String> newTree = new Tree(oldLabel);
