@@ -68,6 +68,7 @@ public class BaselineParser implements Parser {
         return new Tree<String>("ROOT", Collections.singletonList(tree));
     }
 
+    /* Returns a tree like (NN -> ("Bob")) */
     private Tree<String> buildTagTree(List<String> words,
             List<String> tags,
             int currentPosition) {
@@ -77,6 +78,7 @@ public class BaselineParser implements Parser {
         return tagTree;
     }
 
+    /* best known parse is the parse that was seen the most for this tag sequence */
     private Tree<String> getBestKnownParse(List<String> tags, List<String> sentence) {
         Tree<String> parse = knownParses.getCounter(tags).argMax().deepCopy();
         parse.setWords(sentence);
@@ -92,6 +94,7 @@ public class BaselineParser implements Parser {
         return tags;
     }
 
+    /* best tag is the one that gives you the highest P(word|tag) */
     private String getBestTag(String word) {
         double bestScore = Double.NEGATIVE_INFINITY;
         String bestTag = null;
@@ -106,6 +109,8 @@ public class BaselineParser implements Parser {
     }
 
     
+    /* Returns the number of preterminals/non-terminals there are in this tree. */
+>>>>>>> d6666e039d9f2a701fed1cb05fb31be12988cfd1
     private int tallySpans(Tree<String> tree, int start) {
         if (tree.isLeaf() || tree.isPreTerminal()) 
             return 1;

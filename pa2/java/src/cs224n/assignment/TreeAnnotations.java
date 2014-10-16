@@ -27,8 +27,54 @@ public class TreeAnnotations {
 		// order vertical markov process
 
 		return binarizeTree(unAnnotatedTree);
-
+        //return markovizeTree(unAnnotatedTree);
 	}
+
+    //TODO: prune some annotations to account for infrequent labels
+
+//    //Modify original tree version
+//    private static void markovizeTree (Tree<String> unAnnotatedTree){
+//        //Have reached leaves of tree
+//        if(unAnnotatedTree.isLeaf())
+//            return;
+//
+//        String parentLabel = unAnnotatedTree.getLabel();
+//        //Iterate over children and modify label to be C^P (C = child label, P = parent label)
+//        List<Tree<String>> treeChildren = unAnnotatedTree.getChildren();
+//        for(Tree<String> child: treeChildren){
+//            String childLabel = child.getLabel();
+//            child.setLabel(childLabel + "^" + parentLabel);
+//            markovizeTree(child);
+//        }
+//    }
+
+    //Implement 2nd order vertical markovization
+    private static Tree<String> markovizeTree (Tree<String> unAnnotatedTree){
+        return markovizeTreeHelper(unAnnotatedTree, "");
+    }
+
+    //TODO: test this code!!
+    private static Tree<String> markovizeTreeHelper(Tree<String> unAnnotatedTree, String parentLabel){
+        String oldLabel = unAnnotatedTree.getLabel();
+        if(unAnnotatedTree.isLeaf()){
+            Tree<String> newTree = new Tree(oldLabel);
+            //Ensure tree has parent
+            if(parentLabel != "")
+                newTree.setLabel(oldLabel + "^"+ parentLabel);
+            return newTree;
+        }
+        Tree<String> newTree = new Tree(oldLabel);
+        //Iterate over all children and add modified versions to new tree
+        List<Tree<String>> allChildren = new ArrayList<Tree<String>>();
+        for (Tree<String> child: unAnnotatedTree.getChildren()){
+            Tree<String> modifiedChildTree = markovizeTreeHelper(child, oldLabel);
+            allChildren.add(modifiedChildTree);
+        }
+        newTree.setChildren(allChildren);
+        if (parentLabel != "")
+            newTree.setLabel(oldLabel + "^" + parentLabel);
+        return newTree;
+    }
 
 	private static Tree<String> binarizeTree(Tree<String> tree) {
 		String label = tree.getLabel();
