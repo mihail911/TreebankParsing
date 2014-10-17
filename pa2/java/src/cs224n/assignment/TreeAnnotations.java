@@ -26,14 +26,13 @@ public class TreeAnnotations {
 		// TODO : mark nodes with the label of their parent nodes, giving a second
 		// order vertical markov process
 
-		return binarizeTree(unAnnotatedTree);
-        //return markovizeTree(unAnnotatedTree);
+		Tree<String> binaryTree =  binarizeTree(unAnnotatedTree);
+        	return markovizeTree(binaryTree);
 	}
 
     //TODO: prune some annotations to account for infrequent labels
 
-//    //Modify original tree version
-//    private static void markovizeTree (Tree<String> unAnnotatedTree){
+//    //Modify original tree version //    private static void markovizeTree (Tree<String> unAnnotatedTree){
 //        //Have reached leaves of tree
 //        if(unAnnotatedTree.isLeaf())
 //            return;
