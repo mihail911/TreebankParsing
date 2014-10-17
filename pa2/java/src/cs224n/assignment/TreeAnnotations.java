@@ -31,39 +31,19 @@ public class TreeAnnotations {
 		return binaryTree;
 
 	}
-
     //TODO: prune some annotations to account for infrequent labels
-
-//    //Modify original tree version
-//    private static void markovizeTree (Tree<String> unAnnotatedTree){
-//        //Have reached leaves of tree
-//        if(unAnnotatedTree.isLeaf())
-//            return;
-//
-//        String parentLabel = unAnnotatedTree.getLabel();
-//        //Iterate over children and modify label to be C^P (C = child label, P = parent label)
-//        List<Tree<String>> treeChildren = unAnnotatedTree.getChildren();
-//        for(Tree<String> child: treeChildren){
-//            String childLabel = child.getLabel();
-//            child.setLabel(childLabel + "^" + parentLabel);
-//            markovizeTree(child);
-//        }
-//    }
 
     //Implement 2nd order vertical markovization
     private static Tree<String> markovizeTree (Tree<String> unAnnotatedTree){
         return markovizeTreeHelper(unAnnotatedTree, "");
     }
 
-    //TODO: test this code!!
+    //Helper method for recursive 2nd order markovization.
     private static Tree<String> markovizeTreeHelper(Tree<String> unAnnotatedTree, String parentLabel){
         String oldLabel = unAnnotatedTree.getLabel();
         //Base case when you reach a leaf
         if(unAnnotatedTree.isLeaf()){
             Tree<String> newTree = new Tree(oldLabel);
-            //Ensure tree has parent
-//            if(parentLabel != "")
-//                newTree.setLabel(oldLabel + "^"+ parentLabel);
             return newTree;
         }
         Tree<String> newTree = new Tree(oldLabel);
