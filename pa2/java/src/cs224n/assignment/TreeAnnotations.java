@@ -26,7 +26,7 @@ public class TreeAnnotations {
 		// TODO : mark nodes with the label of their parent nodes, giving a second
 		// order vertical markov process
 
-        Tree<String> markovTree = markovizeTree(unAnnotatedTree);
+        Tree<String> markovTree = thirdOrderMarkovizeTree(unAnnotatedTree);
         Tree<String> binaryTree = binarizeTree(markovTree);
 		return binaryTree;
 
@@ -55,6 +55,36 @@ public class TreeAnnotations {
         }
         newTree.setChildren(allChildren);
         if (parentLabel != "")
+            newTree.setLabel(oldLabel + "^" + parentLabel);
+        return newTree;
+    }
+
+    //Perform third order markovization
+    private static Tree<String> thirdOrderMarkovizeTree(Tree<String> unAnnotatedTree){
+        return thirdOrderMarkovizeTreeHelper(unAnnotatedTree, "", "");
+    }
+
+    //Helper method for recursive 3rd order markovization.
+    private static Tree<String> thirdOrderMarkovizeTreeHelper(Tree<String> unAnnotatedTree, String parentLabel, String grandparentLabel){
+        String oldLabel = unAnnotatedTree.getLabel();
+        //Base case when you reach a leaf
+        if(unAnnotatedTree.isLeaf()){
+            Tree<String> newTree = new Tree(oldLabel);
+            return newTree;
+        }
+        Tree<String> newTree = new Tree(oldLabel);
+        //Iterate over all children and add modified versions to new tree
+        List<Tree<String>> allChildren = new ArrayList<Tree<String>>();
+        for (Tree<String> child: unAnnotatedTree.getChildren()){
+            Tree<String> modifiedChildTree = thirdOrderMarkovizeTreeHelper(child, oldLabel, parentLabel);
+            allChildren.add(modifiedChildTree);
+        }
+        newTree.setChildren(allChildren);
+
+        //add grandparent and parent label
+        if (parentLabel != "" &&  grandparentLabel != "")
+            newTree.setLabel(oldLabel + "^" + parentLabel + "^" + grandparentLabel);
+        else if (parentLabel != "")
             newTree.setLabel(oldLabel + "^" + parentLabel);
         return newTree;
     }
