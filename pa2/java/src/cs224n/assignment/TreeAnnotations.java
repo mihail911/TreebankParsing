@@ -80,7 +80,7 @@ public class TreeAnnotations {
         }
         newTree.setChildren(allChildren);
 
-        //add grandparent and parent label
+        //Add grandparent and parent label
         if (parentLabel != "" &&  grandparentLabel != "")
             newTree.setLabel(oldLabel + "^" + parentLabel + "^" + grandparentLabel);
         else if (parentLabel != "")
