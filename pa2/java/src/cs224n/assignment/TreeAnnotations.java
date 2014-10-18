@@ -31,7 +31,6 @@ public class TreeAnnotations {
 		return binaryTree;
 
 	}
-    //TODO: prune some annotations to account for infrequent labels
 
     //Implement 2nd order vertical markovization
     private static Tree<String> markovizeTree (Tree<String> unAnnotatedTree){

@@ -108,6 +108,7 @@ public class BaselineParser implements Parser {
         return bestTag;
     }
 
+    
     /* Returns the number of preterminals/non-terminals there are in this tree. */
     private int tallySpans(Tree<String> tree, int start) {
         if (tree.isLeaf() || tree.isPreTerminal()) 
