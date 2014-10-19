@@ -1,0 +1,406 @@
+found 11 bad guesses with f1 <  60
+Score:
+P: 50.00   R: 41.67   F1: 45.45   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP
+      (NP (JJ Heavy) (NN selling))
+      (PP (IN of)
+        (NP
+          (NP (NNP Standard)
+            (CC &)
+            (NNP Poor) (POS 's))
+          (JJ 500-stock) (NN index) (NNS futures)))
+      (PP (IN in)
+        (NP (NNP Chicago))))
+    (VP
+      (ADVP (RB relentlessly))
+      (VBD beat)
+      (NP (NNS stocks))
+      (ADVP (RB downward)))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP (NNP Heavy))
+    (VP (VBG selling)
+      (PP (IN of)
+        (NP
+          (NP (NNP Standard)
+            (CC &)
+            (NNP Poor) (POS 's))
+          (JJ 500-stock) (NN index) (NNS futures)))
+      (PP (IN in)
+        (NP (NNP Chicago)
+          (ADJP (RB relentlessly) (JJ beat))
+          (NNS stocks)))
+      (ADVP (RB downward)))
+    (. .)))
+
+Score:
+P: 50.00   R: 40.00   F1: 44.44   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP (NNP Big) (NNP Board) (NNP Chairman) (NNP John) (NNP J.) (NNP Phelan))
+    (VP (VBD said)
+      (NP (NN yesterday))
+      (SBAR
+        (S
+          (NP (DT the) (NN circuit) (NN breaker))
+          (`` ``)
+          (VP (VBD worked)
+            (ADVP (RB well))
+            (ADVP (RB mechanically))))))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP (NNP Big) (NNP Board) (NNP Chairman) (NNP John) (NNP J.) (NNP Phelan))
+    (VP (VBD said)
+      (SBAR
+        (S
+          (NP (RB yesterday) (DT the) (NN circuit) (NN breaker))
+          (`` ``)
+          (VP (VBD worked)
+            (ADJP (RB well) (RB mechanically))))))
+    (. .)))
+
+Score:
+P: 61.54   R: 57.14   F1: 59.26   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP (JJ Stock-index) (NNS futures) (NNS contracts))
+    (VP (VBD settled)
+      (PP (IN at)
+        (NP
+          (NP
+            (ADJP (RB much) (JJR lower))
+            (NNS prices))
+          (PP (IN than)
+            (NP
+              (NP (NNS indexes))
+              (PP (IN of)
+                (NP
+                  (NP (DT the) (NN stock) (NN market))
+                  (NP (PRP itself)))))))))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP (JJ Stock-index) (NNS futures) (NNS contracts))
+    (VP (VBD settled)
+      (PP (IN at)
+        (NP
+          (NP
+            (ADJP (RB much) (JJR lower))
+            (NNS prices))
+          (PP (IN than)
+            (NP
+              (NP (NNS indexes))
+              (PP (IN of)
+                (NP (DT the) (NN stock) (NN market)))))))
+      (NP (PRP itself)))
+    (. .)))
+
+Score:
+P: 12.50   R:  7.14   F1:  9.09   EX:  0.00
+Gold:
+(ROOT
+  (S (-LRB- -LRB-)
+    (VP (VB See)
+      (NP
+        (NP (JJ related) (NN story))
+        (: :)
+        (NP (`` ``)
+          (S
+            (NP (NNP Fed))
+            (ADJP (JJ Ready)
+              (S
+                (VP (TO to)
+                  (VP (VB Inject)
+                    (NP (JJ Big) (NNS Funds)))))))
+          ('' '') (: --)
+          (NP (NNP WSJ))
+          (NP (NNP Oct.) (CD 16) (, ,) (CD 1989)))))
+    (-RRB- -RRB-)))
+Guess:
+(ROOT
+  (FRAG (-LRB- -LRB-)
+    (NP (JJ See) (JJ related) (NN story))
+    (: :)
+    (NP
+      (NP (`` ``)
+        (NP (NNP Fed) (NNP Ready))
+        (PP (TO to)
+          (NP (NNP Inject) (NNP Big) (NNPS Funds)))
+        ('' ''))
+      (: --)
+      (NP (NNP WSJ) (NNP Oct.) (CD 16) (, ,) (CD 1989)))
+    (-RRB- -RRB-)))
+
+Score:
+P: 55.56   R: 50.00   F1: 52.63   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP
+      (NP (NNP Friday) (POS 's))
+      (NN stock) (NN market) (NN sell-off))
+    (VP (VBD came)
+      (ADVP (RB too) (RB late)
+        (SBAR (IN for)
+          (S
+            (NP (JJ many) (NNS investors))
+            (VP (TO to)
+              (VP (VB act)))))))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP
+      (NP (NNP Friday) (POS 's))
+      (NN stock) (NN market) (NN sell-off))
+    (VP (VBD came)
+      (ADJP (RB too) (JJ late)
+        (PP (IN for)
+          (NP (JJ many) (NNS investors))))
+      (PP (TO to)
+        (NP (NN act))))
+    (. .)))
+
+Score:
+P: 66.67   R: 53.33   F1: 59.26   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP (DT That))
+    (VP (VBD was)
+      (ADJP
+        (ADJP (RB modestly) (JJR higher))
+        (PP (IN than)
+          (NP
+            (NP (DT the)
+              (ADJP
+                (QP (CD 8.8) (NN %)
+                  (CC and)
+                  (CD 9.2) (JJ %)))
+              (NNS levels))
+            (PP (IN in)
+              (NP
+                (NP (NNP August)
+                  (CC and)
+                  (NNP September))
+                (PP (IN of)
+                  (NP (CD 1987)))))))))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP (WDT That))
+    (VP (VBD was)
+      (ADVP (RB modestly) (JJR higher))
+      (PP (IN than)
+        (NP
+          (NP (DT the)
+            (QP (CD 8.8) (NN %)
+              (CC and)
+              (CD 9.2) (NN %))
+            (NNS levels))
+          (PP (IN in)
+            (NP (NNP August)
+              (CC and)
+              (NNP September)))))
+      (PP (IN of)
+        (NP (CD 1987))))
+    (. .)))
+
+Score:
+P: 66.67   R: 50.00   F1: 57.14   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP (NN Trading) (NN volume))
+    (VP (VBD was)
+      (ADJP
+        (ADJP
+          (ADVP (RB only) (RB modestly))
+          (JJR higher))
+        (PP (IN than)
+          (NP (JJ normal)))))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP (NN Trading) (NN volume))
+    (VP (VBD was)
+      (ADVP (RB only) (RB modestly))
+      (ADJP
+        (ADVP (JJR higher) (IN than))
+        (JJ normal)))
+    (. .)))
+
+Score:
+P: 50.00   R: 45.45   F1: 47.62   EX:  0.00
+Gold:
+(ROOT
+  (S (CC But)
+    (ADVP (RB now))
+    (S
+      (NP (NNS prices))
+      (VP (VBP have)
+        (VP (VBN nose-dived))))
+    (CC and)
+    (S
+      (NP
+        (NP (NNP Quantum) (POS 's))
+        (NN profit))
+      (VP (VBZ is)
+        (VP (VBG plummeting))))
+    (. .)))
+Guess:
+(ROOT
+  (S (CC But)
+    (ADVP (RB now))
+    (NP (NNS prices))
+    (VP (VBP have)
+      (SBAR
+        (S
+          (NP
+            (NP (NNP nose-dived)
+              (CC and)
+              (NNP Quantum) (POS 's))
+            (NN profit))
+          (VP (VBZ is)
+            (VP (VBG plummeting))))))
+    (. .)))
+
+Score:
+P:  9.09   R:  9.52   F1:  9.30   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP (PRP He))
+    (VP (VBZ argues)
+      (SBAR (IN that)
+        (S
+          (NP (NNS efforts)
+            (S
+              (VP (TO to)
+                (VP (VB firm)
+                  (PRT (RP up))
+                  (NP (NNS prices))))))
+          (VP (MD will)
+            (VP (VB be)
+              (VP (VBN undermined)
+                (PP (IN by)
+                  (NP
+                    (NP (NNS producers) (POS '))
+                    (NNS plans)
+                    (S
+                      (VP (TO to)
+                        (VP (VB expand)
+                          (NP (NN production) (NN capacity)))))))))))))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP (PRP He))
+    (VP (VBZ argues)
+      (SBAR (IN that)
+        (S
+          (NP (NNS efforts))
+          (VP (TO to)
+            (VP (VB firm)
+              (PRT (RP up))
+              (NP (NNS prices)
+                (S
+                  (VP (MD will)
+                    (VP (VB be)
+                      (VP (VBN undermined)
+                        (PP (IN by)
+                          (NP (NNS producers))))))))
+              ('' ')
+              (SBAR
+                (S
+                  (NP (NNS plans))
+                  (VP (TO to)
+                    (VP (VB expand)
+                      (NP (NN production) (NN capacity)))))))))))
+    (. .)))
+
+Score:
+P: 45.45   R: 41.67   F1: 43.48   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (ADVP (RB Still))
+    (, ,)
+    (NP (NNP Quantum))
+    (VP (VBZ has)
+      (NP
+        (NP (DT a) (NN crisis))
+        (SBAR
+          (S
+            (VP (TO to)
+              (VP (VB get)
+                (PP (IN past)))))))
+      (ADVP (RB right) (RB now)))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (ADVP (RB Still))
+    (, ,)
+    (NP (NNP Quantum))
+    (VP (VBZ has)
+      (SBAR
+        (S
+          (NP (DT a) (NN crisis))
+          (VP (TO to)
+            (VP (VB get)
+              (NP (JJ past) (NN right))
+              (ADVP (RB now)))))))
+    (. .)))
+
+Score:
+P: 42.86   R: 50.00   F1: 46.15   EX:  0.00
+Gold:
+(ROOT
+  (S
+    (NP (NNP Elcotel))
+    (VP (MD will)
+      (VP (VB provide)
+        (NP
+          (NP (DT a) (NN credit-card) (NN reader))
+          (SBAR (IN for)
+            (S
+              (NP (DT the) (NNS machines))
+              (VP (TO to)
+                (VP (VB collect) (, ,) (VB store)
+                  (CC and)
+                  (VB forward)
+                  (NP (NN billing) (NNS data)))))))))
+    (. .)))
+Guess:
+(ROOT
+  (S
+    (NP (NNP Elcotel))
+    (VP (MD will)
+      (VP (VB provide)
+        (NP
+          (NP (DT a) (NN credit-card) (NN reader))
+          (PP (IN for)
+            (NP
+              (NP (DT the) (NNS machines)
+                (S
+                  (VP (TO to)
+                    (VP (VB collect)))))
+              (, ,)
+              (NP (NN store))
+              (CC and)
+              (NP (JJ forward) (NN billing) (NNS data)))))))
+    (. .)))
+
